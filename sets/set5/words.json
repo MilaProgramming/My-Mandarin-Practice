@@ -1,0 +1,16 @@
+{
+  "id": "set5",
+  "name": "Set 5 · Animals",
+  "words": [
+    { "hanzi": "猫", "pinyin": "māo",  "meaning": "cat", "group": "犭" },
+    { "hanzi": "狗", "pinyin": "gǒu",  "meaning": "dog", "group": "犭" },
+    { "hanzi": "鸟", "pinyin": "niǎo", "meaning": "bird", "group": "鸟" },
+    { "hanzi": "鱼", "pinyin": "yú",   "meaning": "fish", "group": "鱼" },
+    { "hanzi": "马", "pinyin": "mǎ",   "meaning": "horse", "group": "马" },
+    { "hanzi": "牛", "pinyin": "niú",  "meaning": "cow · ox", "group": "" },
+    { "hanzi": "羊", "pinyin": "yáng", "meaning": "sheep · goat", "group": "" },
+    { "hanzi": "鸡", "pinyin": "jī",   "meaning": "chicken", "group": "鸟" },
+    { "hanzi": "猪", "pinyin": "zhū",  "meaning": "pig", "group": "犭" },
+    { "hanzi": "鸭", "pinyin": "yā",   "meaning": "duck", "group": "鸟" }
+  ]
+}

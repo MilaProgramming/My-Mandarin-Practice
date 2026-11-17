@@ -1,0 +1,16 @@
+{
+  "id": "set6",
+  "name": "Set 6 · Directions",
+  "words": [
+    { "hanzi": "上", "pinyin": "shàng", "meaning": "up · above", "group": "" },
+    { "hanzi": "下", "pinyin": "xià",   "meaning": "down · below", "group": "" },
+    { "hanzi": "后", "pinyin": "hòu",   "meaning": "back · behind", "group": "" },
+    { "hanzi": "前", "pinyin": "qián",  "meaning": "front · before", "group": "" },
+    { "hanzi": "外", "pinyin": "wài",   "meaning": "outside", "group": "" },
+    { "hanzi": "里", "pinyin": "lǐ",    "meaning": "inside", "group": "里" },
+    { "hanzi": "左", "pinyin": "zuǒ",   "meaning": "left", "group": "" },
+    { "hanzi": "右", "pinyin": "yòu",   "meaning": "right", "group": "" },
+    { "hanzi": "东", "pinyin": "dōng",  "meaning": "east", "group": "" },
+    { "hanzi": "西", "pinyin": "xī",    "meaning": "west", "group": "" }
+  ]
+}

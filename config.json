@@ -23,6 +23,18 @@
       "name": "Set 4 · Food",
       "path": "sets/set4/words.json",
       "active": true
+    },
+    {
+      "id": "set5",
+      "name": "Set 5 · Animals",
+      "path": "sets/set5/words.json",
+      "active": true
+    },
+    {
+      "id": "set6",
+      "name": "Set 6 · Directions",
+      "path": "sets/set6/words.json",
+      "active": true
     }
   ]
 }

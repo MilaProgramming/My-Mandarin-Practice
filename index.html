@@ -168,6 +168,43 @@ function parsePinyin(pinyin) {
   }
   return { base: pinyin, tone: 5 };
 }
+
+// Find the correct vowel index to place the tone mark, following pinyin rules
+function toneVowelIndex(syl) {
+  const lower = syl.toLowerCase();
+  // 1. a or e always wins
+  const ae = lower.search(/[aāáǎàeēéěè]/);
+  if (ae !== -1 && /[aāáǎàeēéěè]/.test(lower[ae])) return ae;
+  // 2. 'ou' → tone on o
+  const ou = lower.indexOf('ou');
+  if (ou !== -1) return ou;
+  // 3. Otherwise the last vowel
+  const vowels = 'aeiouüāáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ';
+  for (let i = lower.length - 1; i >= 0; i--) {
+    if (vowels.includes(lower[i])) return i;
+  }
+  return -1;
+}
+
+function addTone(baseSyl, toneNum) {
+  const vi = toneVowelIndex(baseSyl);
+  if (vi === -1) return baseSyl;
+  // Normalize the vowel to its unaccented form first
+  const plain = 'aeiouü';
+  const accentMap = 'āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ';
+  const plainMap   = 'aaaaeeeeiiiioooouuuuüüüü';
+  let v = baseSyl[vi].toLowerCase();
+  const idx = accentMap.indexOf(v);
+  if (idx !== -1) v = plainMap[idx];
+  const marks = {
+    1:{a:'ā',e:'ē',i:'ī',o:'ō',u:'ū','ü':'ǖ'},
+    2:{a:'á',e:'é',i:'í',o:'ó',u:'ú','ü':'ǘ'},
+    3:{a:'ǎ',e:'ě',i:'ǐ',o:'ǒ',u:'ǔ','ü':'ǚ'},
+    4:{a:'à',e:'è',i:'ì',o:'ò',u:'ù','ü':'ǜ'}
+  };
+  const marked = marks[toneNum]?.[v] || v;
+  return baseSyl.slice(0,vi) + marked + baseSyl.slice(vi+1);
+}
 function addTone(baseSyl, toneNum) {
   const vowels = ['a','e','i','o','u','ü'];
   let vi = -1, vc = '';

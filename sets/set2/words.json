@@ -1,0 +1,16 @@
+{
+  "id": "set2",
+  "name": "Set 2 · Numbers",
+  "words": [
+    { "hanzi": "一", "pinyin": "yī",   "meaning": "one", "group": "" },
+    { "hanzi": "二", "pinyin": "èr",   "meaning": "two", "group": "" },
+    { "hanzi": "三", "pinyin": "sān",  "meaning": "three", "group": "" },
+    { "hanzi": "四", "pinyin": "sì",   "meaning": "four", "group": "" },
+    { "hanzi": "五", "pinyin": "wǔ",   "meaning": "five", "group": "" },
+    { "hanzi": "六", "pinyin": "liù",  "meaning": "six", "group": "" },
+    { "hanzi": "七", "pinyin": "qī",   "meaning": "seven", "group": "" },
+    { "hanzi": "九", "pinyin": "jiǔ",  "meaning": "nine", "group": "" },
+    { "hanzi": "十", "pinyin": "shí",  "meaning": "ten", "group": "" },
+    { "hanzi": "百", "pinyin": "bǎi",  "meaning": "hundred", "group": "" }
+  ]
+}

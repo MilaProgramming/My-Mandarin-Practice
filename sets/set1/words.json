@@ -1,0 +1,16 @@
+{
+  "id": "set1",
+  "name": "Set 1 · Basics",
+  "words": [
+    { "hanzi": "爱", "pinyin": "ài",   "meaning": "love", "group": "" },
+    { "hanzi": "八", "pinyin": "bā",   "meaning": "eight", "group": "" },
+    { "hanzi": "爸", "pinyin": "bà",   "meaning": "father", "group": "" },
+    { "hanzi": "杯子", "pinyin": "bēi zi", "meaning": "cup", "group": "木" },
+    { "hanzi": "本", "pinyin": "běn",  "meaning": "classifier for books", "group": "木" },
+    { "hanzi": "不", "pinyin": "bù",   "meaning": "no · not", "group": "" },
+    { "hanzi": "菜", "pinyin": "cài",  "meaning": "dish · cuisine", "group": "艹" },
+    { "hanzi": "茶", "pinyin": "chá",  "meaning": "tea", "group": "艹" },
+    { "hanzi": "吃", "pinyin": "chī",  "meaning": "eat", "group": "口" },
+    { "hanzi": "大", "pinyin": "dà",   "meaning": "big", "group": "" }
+  ]
+}

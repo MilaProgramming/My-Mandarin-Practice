@@ -1,0 +1,16 @@
+{
+  "id": "set3",
+  "name": "Set 3 · Family",
+  "words": [
+    { "hanzi": "妈", "pinyin": "mā",   "meaning": "mother", "group": "女" },
+    { "hanzi": "哥", "pinyin": "gē",   "meaning": "older brother", "group": "口" },
+    { "hanzi": "姐", "pinyin": "jiě",  "meaning": "older sister", "group": "女" },
+    { "hanzi": "弟", "pinyin": "dì",   "meaning": "younger brother", "group": "" },
+    { "hanzi": "妹", "pinyin": "mèi",  "meaning": "younger sister", "group": "女" },
+    { "hanzi": "儿", "pinyin": "ér",   "meaning": "son · child", "group": "" },
+    { "hanzi": "女", "pinyin": "nǚ",   "meaning": "daughter · woman", "group": "女" },
+    { "hanzi": "家", "pinyin": "jiā",  "meaning": "home · family", "group": "宀" },
+    { "hanzi": "人", "pinyin": "rén",  "meaning": "person", "group": "" },
+    { "hanzi": "朋", "pinyin": "péng", "meaning": "friend", "group": "月" }
+  ]
+}

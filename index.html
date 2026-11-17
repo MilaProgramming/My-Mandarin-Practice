@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mandarin · Tone Practice</title>
+<style>
+:root{--ink:#20283b;--muted:#748096;--line:#e4e8f0;--bg:#f5f7fb;--blue:#4057a5;--blue2:#eef1ff;--green:#16845b;--greenbg:#e8f6ef;--red:#bd4651;--redbg:#fff0f1;--sidebar:#ffffff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh;display:flex;padding:24px;gap:24px}
+.layout{display:flex;width:100%;max-width:1400px;margin:0 auto;gap:24px}
+.sidebar{width:260px;flex-shrink:0;display:flex;flex-direction:column;gap:20px}
+.main{flex:1;min-width:0;display:grid;place-items:center}
+.app{width:min(100%,720px)}
+.card{background:var(--sidebar);border:1px solid var(--line);border-radius:18px;padding:20px 18px;box-shadow:0 4px 16px #24345b08}
+.card-title{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:0 0 14px;display:flex;align-items:center;gap:8px}
+.set-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.set-item{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-radius:11px;cursor:pointer;font-size:14px;font-weight:600;color:var(--ink);background:transparent;border:1px solid transparent;transition:.15s;text-align:left;width:100%}
+.set-item:hover{background:#f5f7fb;border-color:var(--line)}
+.set-item.active{background:var(--blue2);color:var(--blue);border-color:#d0d8f5}
+.set-item .count{font-size:12px;font-weight:500;color:var(--muted);background:#f0f2f7;padding:2px 9px;border-radius:20px}
+.set-item.active .count{background:white;color:var(--blue)}
+.set-item.coming-soon{opacity:.55;cursor:default;font-style:italic}
+.set-item.coming-soon:hover{background:transparent;border-color:transparent}
+.mistake-card{background:linear-gradient(135deg,#fff8f8 0%,#fff 100%);border:1px solid #f0d6d9}
+.mistake-card .card-title{color:var(--red)}
+.mistake-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.mistake-icon{width:38px;height:38px;border-radius:10px;background:var(--redbg);display:grid;place-items:center;font-size:18px;color:var(--red);flex-shrink:0}
+.mistake-info{flex:1}
+.mistake-count{font-size:22px;font-weight:750;color:var(--red);line-height:1.1}
+.mistake-label{font-size:12px;color:var(--muted);margin-top:2px}
+.mistake-btn{width:100%;border:0;border-radius:10px;padding:11px;font-weight:700;font-size:13px;cursor:pointer;background:var(--redbg);color:var(--red);transition:.15s}
+.mistake-btn:hover:not(:disabled){background:#ffe3e6}
+.mistake-btn:disabled{opacity:.4;cursor:not-allowed}
+.mistake-list{margin-top:12px;display:flex;flex-direction:column;gap:4px;max-height:150px;overflow-y:auto}
+.mistake-word{display:flex;justify-content:space-between;align-items:center;padding:7px 10px;border-radius:8px;background:#fafbff;font-size:13px}
+.mistake-word .hz{font-family:"Noto Sans CJK SC","Microsoft YaHei",sans-serif;font-size:17px;font-weight:500}
+.mistake-word .py{color:var(--muted);font-size:12px}
+.empty-mistakes{text-align:center;color:var(--muted);font-size:13px;padding:16px 0}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.title{font-size:26px;font-weight:750;margin:5px 0 0}
+.counter{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.panel{background:white;border:1px solid var(--line);border-radius:22px;padding:clamp(20px,5vw,38px);box-shadow:0 12px 40px #24345b0b}
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:8px;background:#f0f2f7;padding:5px;border-radius:13px;margin-bottom:25px}
+.mode{border:0;background:transparent;padding:12px 9px;border-radius:9px;font-weight:650;color:var(--muted);cursor:pointer;font-size:14px}
+.mode.active{background:white;color:var(--blue);box-shadow:0 2px 7px #1d2d5012}
+.progress-meta{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;margin-bottom:8px}
+.track{height:6px;background:#edf0f5;border-radius:9px;overflow:hidden}
+.bar{height:100%;width:0;background:var(--blue);border-radius:9px;transition:width .25s}
+.prompt{min-height:205px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:22px 0 16px}
+.prompt-label{font-size:13px;color:var(--muted);margin-bottom:14px}
+.hanzi{font-family:"Noto Sans CJK SC","Microsoft YaHei",sans-serif;font-size:clamp(64px,13vw,94px);line-height:1.2;font-weight:500}
+.pinyin{font-size:clamp(27px,6vw,38px);font-weight:650;letter-spacing:.02em}
+.meaning{color:var(--muted);font-size:14px;margin-top:9px}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.option{min-height:58px;border:1.5px solid var(--line);border-radius:13px;background:white;color:var(--ink);font-size:19px;font-weight:600;cursor:pointer;padding:12px;transition:.15s}
+.option:hover:not(:disabled){border-color:#9aa8d8;background:#fafbff}
+.option:disabled{cursor:default}
+.option.correct{border-color:var(--green);background:var(--greenbg);color:var(--green)}
+.option.wrong{border-color:var(--red);background:var(--redbg);color:var(--red)}
+.feedback{min-height:52px;padding:15px 2px 0;font-size:14px;color:var(--muted);text-align:center}
+.feedback.good{color:var(--green)}
+.feedback.bad{color:var(--red)}
+.actions{display:flex;gap:10px;margin-top:8px}
+.primary,.secondary{border:0;border-radius:12px;padding:14px 18px;font-weight:700;cursor:pointer;font-size:14px}
+.primary{background:var(--blue);color:white;flex:1}
+.primary:disabled{opacity:.35;cursor:not-allowed}
+.secondary{background:#f0f2f7;color:#566078}
+.footer{display:flex;justify-content:space-between;align-items:center;margin-top:18px;color:var(--muted);font-size:12px}
+.kbd{border:1px solid var(--line);padding:3px 7px;border-radius:6px;background:white}
+.done{text-align:center;padding:35px 10px}
+.done .big{font-size:54px}
+.done h2{margin:12px 0 6px}
+.done p{color:var(--muted)}
+.loading{text-align:center;padding:40px;color:var(--muted);font-size:14px}
+.error-box{background:var(--redbg);color:var(--red);padding:16px;border-radius:12px;font-size:13px;text-align:center;margin-bottom:16px}
+@media(max-width:900px){.layout{flex-direction:column}.sidebar{width:100%;flex-direction:row;flex-wrap:wrap}.card{flex:1;min-width:200px}}
+@media(max-width:480px){body{padding:14px}.options{grid-template-columns:1fr}.option{min-height:52px}.top{align-items:flex-start}.title{font-size:22px}.sidebar{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="card">
+      <div class="card-title">📚 Question Sets</div>
+      <ul class="set-list" id="setList">
+        <li class="loading">Loading sets…</li>
+      </ul>
+    </div>
+    <div class="card mistake-card">
+      <div class="card-title">🔁 Review Mistakes</div>
+      <div id="mistakeContent">
+        <div class="empty-mistakes">No mistakes yet — keep it up! ✨</div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <div class="app">
+      <header class="top">
+        <div><div class="eyebrow" id="eyebrow">Mandarin · Basic Vocabulary</div><h1 class="title" id="mainTitle">Tone Practice</h1></div>
+        <div class="counter" id="counter">— / —</div>
+      </header>
+      <section class="panel">
+        <div id="errorBox"></div>
+        <div class="modes">
+          <button class="mode active" id="mode1" type="button">Character → Pinyin</button>
+          <button class="mode" id="mode2" type="button">Pinyin → Character</button>
+        </div>
+        <div id="quiz">
+          <div class="progress-meta"><span id="progressLabel">Round progress</span><span id="scoreLabel">0 correct</span></div>
+          <div class="track"><div class="bar" id="bar"></div></div>
+          <div class="prompt">
+            <div class="prompt-label" id="promptLabel">What is the correct pinyin?</div>
+            <div class="hanzi" id="hanzi">—</div>
+            <div class="pinyin" id="pinyin" hidden></div>
+            <div class="meaning" id="meaning"></div>
+          </div>
+          <div class="options" id="options"></div>
+          <div class="feedback" id="feedback" aria-live="polite">Loading…</div>
+          <div class="actions">
+            <button class="secondary" id="restart" type="button">Restart</button>
+            <button class="primary" id="next" type="button" disabled>Next →</button>
+          </div>
+        </div>
+        <div class="done" id="done" hidden>
+          <div class="big">完成！</div><h2>Round complete!</h2><p id="result"></p>
+          <button class="primary" id="again" type="button">Practice again</button>
+        </div>
+      </section>
+      <div class="footer"><span id="footerInfo">— words · 4 options per question</span><span><span class="kbd">←</span> Restart anytime</span></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ---------- State ----------
+let config = { sets: [] };
+let currentSetId = null;
+let words = [];          // words of the currently loaded set
+let deck = [];
+let index = 0;
+let score = 0;
+let answered = false;
+let mode = 1;
+let missedWords = [];
+
+const $ = id => document.getElementById(id);
+const shuffle = a => [...a].sort(() => Math.random() - 0.5);
+
+// ---------- Pinyin / tone helpers ----------
+function parsePinyin(pinyin) {
+  const toneMap = {
+    'ā':['a',1],'á':['a',2],'ǎ':['a',3],'à':['a',4],
+    'ē':['e',1],'é':['e',2],'ě':['e',3],'è':['e',4],
+    'ī':['i',1],'í':['i',2],'ǐ':['i',3],'ì':['i',4],
+    'ō':['o',1],'ó':['o',2],'ǒ':['o',3],'ò':['o',4],
+    'ū':['u',1],'ú':['u',2],'ǔ':['u',3],'ù':['u',4],
+    'ǖ':['ü',1],'ǘ':['ü',2],'ǚ':['ü',3],'ǜ':['ü',4]
+  };
+  for (let i = 0; i < pinyin.length; i++) {
+    const ch = pinyin[i];
+    if (toneMap[ch]) {
+      const [base, tone] = toneMap[ch];
+      return { base: pinyin.slice(0,i) + base + pinyin.slice(i+1), tone };
+    }
+  }
+  return { base: pinyin, tone: 5 };
+}
+function addTone(baseSyl, toneNum) {
+  const vowels = ['a','e','i','o','u','ü'];
+  let vi = -1, vc = '';
+  for (let i = 0; i < baseSyl.length; i++) {
+    if (vowels.includes(baseSyl[i].toLowerCase())) { vi = i; vc = baseSyl[i].toLowerCase(); break; }
+  }
+  if (vi === -1) return baseSyl;
+  const marks = {
+    1:{a:'ā',e:'ē',i:'ī',o:'ō',u:'ū','ü':'ǖ'},
+    2:{a:'á',e:'é',i:'í',o:'ó',u:'ú','ü':'ǘ'},
+    3:{a:'ǎ',e:'ě',i:'ǐ',o:'ǒ',u:'ǔ','ü':'ǚ'},
+    4:{a:'à',e:'è',i:'ì',o:'ò',u:'ù','ü':'ǜ'}
+  };
+  return baseSyl.slice(0,vi) + (marks[toneNum]?.[vc] || vc) + baseSyl.slice(vi+1);
+}
+function getToneVariants(pinyin) {
+  const { base } = parsePinyin(pinyin);
+  return [1,2,3,4].map(t => addTone(base, t));
+}
+function getSameSyllableWords(targetWord) {
+  const targetBase = parsePinyin(targetWord.pinyin).base;
+  return words.filter(w => {
+    if (w === targetWord) return false;
+    return parsePinyin(w.pinyin).base === targetBase;
+  });
+}
+
+// ---------- Loading ----------
+async function loadConfig() {
+  try {
+    const res = await fetch('config.json', { cache: 'no-cache' });
+    if (!res.ok) throw new Error(`config.json not found (${res.status})`);
+    config = await res.json();
+  } catch (err) {
+    showError('Could not load config.json. Make sure it exists next to index.html. ' + err.message);
+    config = { sets: [] };
+  }
+}
+
+async function loadSet(setId) {
+  const setMeta = config.sets.find(s => s.id === setId);
+  if (!setMeta) { showError('Set not found in config.json'); return; }
+  try {
+    const res = await fetch(setMeta.path, { cache: 'no-cache' });
+    if (!res.ok) throw new Error(`${setMeta.path} (${res.status})`);
+    const data = await res.json();
+    words = data.words || [];
+    if (words.length === 0) throw new Error('Set has no words');
+    currentSetId = setId;
+    // Reset round
+    deck = shuffle(words);
+    index = 0; score = 0; answered = false; missedWords = [];
+    $('quiz').hidden = false;
+    $('done').hidden = true;
+    $('eyebrow').textContent = 'Mandarin · ' + (data.name || setMeta.name);
+    $('mainTitle').textContent = 'Tone Practice';
+    $('footerInfo').textContent = `${words.length} words · 4 options per question`;
+    renderMistakes();
+    render();
+  } catch (err) {
+    showError('Could not load set data. ' + err.message);
+  }
+}
+
+// ---------- Rendering ----------
+function showError(msg) {
+  $('errorBox').innerHTML = `<div class="error-box">${msg}</div>`;
+}
+function clearError() { $('errorBox').innerHTML = ''; }
+
+function renderSetList() {
+  const list = $('setList');
+  list.innerHTML = '';
+  if (!config.sets.length) {
+    list.innerHTML = `<li class="loading">No sets in config.json</li>`;
+    return;
+  }
+  config.sets.forEach(s => {
+    const li = document.createElement('li');
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'set-item' + (s.id === currentSetId ? ' active' : '') + (s.active === false ? ' coming-soon' : '');
+    if (s.active === false) btn.disabled = true;
+    btn.innerHTML = `<span>${s.name}</span><span class="count">${s.active === false ? 'Soon' : '→'}</span>`;
+    btn.addEventListener('click', () => {
+      if (s.active === false) return;
+      loadSet(s.id);
+      document.querySelectorAll('.set-item').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+    li.appendChild(btn);
+    list.appendChild(li);
+  });
+}
+
+function renderMistakes() {
+  const container = $('mistakeContent');
+  if (missedWords.length === 0) {
+    container.innerHTML = `<div class="empty-mistakes">No mistakes yet — keep it up! ✨</div>`;
+    return;
+  }
+  const count = missedWords.length;
+  let html = `
+    <div class="mistake-header">
+      <div class="mistake-icon">✗</div>
+      <div class="mistake-info">
+        <div class="mistake-count">${count}</div>
+        <div class="mistake-label">word${count>1?'s':''} to review</div>
+      </div>
+    </div>
+    <button class="mistake-btn" id="reviewMistakesBtn" type="button">Review mistakes →</button>
+    <div class="mistake-list">
+  `;
+  missedWords.forEach(w => {
+    html += `<div class="mistake-word"><span class="hz">${w.hanzi}</span><span class="py">${w.pinyin}</span></div>`;
+  });
+  html += `</div>`;
+  container.innerHTML = html;
+  document.getElementById('reviewMistakesBtn').addEventListener('click', startReviewRound);
+}
+
+function startReviewRound() {
+  if (missedWords.length === 0) return;
+  const reviewWords = [...missedWords];
+  missedWords = [];
+  deck = shuffle(reviewWords);
+  index = 0; score = 0; answered = false;
+  $('quiz').hidden = false;
+  $('done').hidden = true;
+  $('eyebrow').textContent = 'Mandarin · Review Mistakes';
+  $('mainTitle').textContent = 'Review Session';
+  $('footerInfo').textContent = `${deck.length} review words · 4 options per question`;
+  renderMistakes();
+  render();
+}
+
+function render() {
+  if (index >= deck.length) { finish(); return; }
+  answered = false;
+  const w = deck[index];
+  $('counter').textContent = `${index+1} / ${deck.length}`;
+  $('bar').style.width = `${index/deck.length*100}%`;
+  $('scoreLabel').textContent = `${score} correct`;
+  $('feedback').className = 'feedback';
+  $('feedback').textContent = 'Choose one of the four options.';
+  $('next').disabled = true;
+  $('next').textContent = index === deck.length-1 ? 'See result' : 'Next →';
+  $('hanzi').hidden = mode === 2;
+  $('pinyin').hidden = mode === 1;
+  $('meaning').textContent = w.meaning;
+
+  if (mode === 1) {
+    $('promptLabel').textContent = 'What is the correct pinyin?';
+    $('hanzi').textContent = w.hanzi;
+  } else {
+    $('promptLabel').textContent = 'Which character matches this pinyin?';
+    $('pinyin').textContent = w.pinyin;
+  }
+
+  let choices;
+  if (mode === 1) {
+    const variants = getToneVariants(w.pinyin);
+    choices = shuffle(variants).map(p => ({ pinyin: p, hanzi: '', meaning: '', group: '' }));
+  } else {
+    let pool = getSameSyllableWords(w);
+    if (pool.length < 3) {
+      const allOthers = words.filter(x => x !== w);
+      pool = shuffle([...pool, ...shuffle(allOthers.filter(x => !pool.includes(x)))]);
+    }
+    choices = shuffle([w, ...pool.slice(0,3)]);
+  }
+
+  $('options').innerHTML = '';
+  choices.forEach(choice => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'option';
+    b.textContent = mode === 1 ? choice.pinyin : choice.hanzi;
+    b.addEventListener('click', () => choose(b, choice, w));
+    $('options').appendChild(b);
+  });
+}
+
+function choose(button, choice, answer) {
+  if (answered) return;
+  answered = true;
+  const buttons = [...$('options').children];
+  const correctText = mode === 1 ? answer.pinyin : answer.hanzi;
+  buttons.forEach(b => {
+    b.disabled = true;
+    if (b.textContent === correctText) b.classList.add('correct');
+  });
+  const correct = mode === 1 ? choice.pinyin === answer.pinyin : choice === answer;
+  if (correct) {
+    score++;
+    $('feedback').className = 'feedback good';
+    $('feedback').textContent = 'Correct! ' + answer.hanzi + ' · ' + answer.pinyin + ' · ' + answer.meaning;
+  } else {
+    button.classList.add('wrong');
+    $('feedback').className = 'feedback bad';
+    $('feedback').textContent = `Not quite. The answer is ${answer.hanzi} (${answer.pinyin}) · ${answer.meaning}.`;
+    if (!missedWords.includes(answer)) missedWords.push(answer);
+    renderMistakes();
+  }
+  $('scoreLabel').textContent = `${score} correct`;
+  $('next').disabled = false;
+}
+
+function finish() {
+  $('quiz').hidden = true;
+  $('done').hidden = false;
+  $('counter').textContent = `${deck.length} / ${deck.length}`;
+  $('bar').style.width = '100%';
+  $('result').textContent = `You got ${score} out of ${deck.length} correct (${Math.round(score/deck.length*100)}%).`;
+}
+
+function setMode(m) {
+  mode = m;
+  $('mode1').classList.toggle('active', m === 1);
+  $('mode2').classList.toggle('active', m === 2);
+  // Restart current set
+  if (currentSetId) loadSet(currentSetId);
+}
+
+// ---------- Events ----------
+$('next').addEventListener('click', () => { if (answered) { index++; render(); } });
+$('restart').addEventListener('click', () => { if (currentSetId) loadSet(currentSetId); });
+$('again').addEventListener('click', () => { if (currentSetId) loadSet(currentSetId); });
+$('mode1').addEventListener('click', () => setMode(1));
+$('mode2').addEventListener('click', () => setMode(2));
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowLeft' && currentSetId) loadSet(currentSetId);
+  if (e.key === 'Enter' && !$('next').disabled) $('next').click();
+});
+
+// ---------- Boot ----------
+(async function boot() {
+  clearError();
+  await loadConfig();
+  renderSetList();
+  const firstActive = config.sets.find(s => s.active !== false);
+  if (firstActive) {
+    await loadSet(firstActive.id);
+  } else {
+    $('feedback').textContent = 'No active sets found in config.json.';
+  }
+})();
+</script>
+</body>
+</html>

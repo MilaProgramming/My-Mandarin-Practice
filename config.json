@@ -1,0 +1,28 @@
+{
+  "sets": [
+    {
+      "id": "set1",
+      "name": "Set 1 · Basics",
+      "path": "sets/set1/words.json",
+      "active": true
+    },
+    {
+      "id": "set2",
+      "name": "Set 2 · Numbers",
+      "path": "sets/set2/words.json",
+      "active": true
+    },
+    {
+      "id": "set3",
+      "name": "Set 3 · Family",
+      "path": "sets/set3/words.json",
+      "active": true
+    },
+    {
+      "id": "set4",
+      "name": "Set 4 · Food",
+      "path": "sets/set4/words.json",
+      "active": true
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "set4",
+  "name": "Set 4 · Food",
+  "words": [
+    { "hanzi": "饭", "pinyin": "fàn",  "meaning": "rice · meal", "group": "饣" },
+    { "hanzi": "面", "pinyin": "miàn", "meaning": "noodles", "group": "面" },
+    { "hanzi": "水", "pinyin": "shuǐ", "meaning": "water", "group": "水" },
+    { "hanzi": "酒", "pinyin": "jiǔ",  "meaning": "wine · alcohol", "group": "酉" },
+    { "hanzi": "肉", "pinyin": "ròu",  "meaning": "meat", "group": "肉" },
+    { "hanzi": "鱼", "pinyin": "yú",   "meaning": "fish", "group": "鱼" },
+    { "hanzi": "蛋", "pinyin": "dàn",  "meaning": "egg", "group": "" },
+    { "hanzi": "糖", "pinyin": "táng", "meaning": "sugar · candy", "group": "米" },
+    { "hanzi": "汤", "pinyin": "tāng", "meaning": "soup", "group": "氵" },
+    { "hanzi": "果", "pinyin": "guǒ",  "meaning": "fruit", "group": "木" }
+  ]
+}

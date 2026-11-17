@@ -175,7 +175,7 @@ function renderSetList() {
 function renderMistakes() {
   const container = $('mistakeContent');
   if (missedWords.length === 0) {
-    container.innerHTML = `<div class="empty-mistakes">No mistakes yet — keep it up! ✨</div>`;
+    container.innerHTML = `<div class="empty-mistakes">No mistakes yet — keep it up!</div>`;
     return;
   }
   const count = missedWords.length;
